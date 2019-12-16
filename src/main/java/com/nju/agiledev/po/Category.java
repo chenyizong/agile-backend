@@ -6,21 +6,18 @@ import lombok.Data;
 import javax.persistence.*;
 
 /**
- * User:用户表
- * ID id号
- * username 用户名
- * password 密码
+ * category:书本目录表
+ * id 目录id
+ * name 目录名字
  */
 @Entity
-@Table(name = "user")
+@Table(name = "category")
 @JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 @Data
-public class User {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     int id;
-    String username;
-    String password;
-
+    String name;
 }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
 
 
 @Controller
@@ -21,14 +20,13 @@ public class LoginController {
     @CrossOrigin
     @PostMapping(value = "api/login")
     @ResponseBody
-    public Result login(@RequestBody User requestUser, HttpSession session) {
+    public Result login(@RequestBody User requestUser) {
 
         User user = userService.getUser(requestUser.getUsername(), requestUser.getPassword());
 
         if (user == null) {
             return new Result(400);
         } else {
-            session.setAttribute("user", user);
             return new Result(200);
         }
 
