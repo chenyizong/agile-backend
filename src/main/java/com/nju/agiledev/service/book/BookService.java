@@ -29,4 +29,11 @@ public interface BookService {
      * @return
      */
     List<Book> listByCategory(int cid);
+
+    /**
+     * 模糊搜索书名或者作者名
+     * @param keywords
+     * @return
+     */
+    List<Book> search(String keywords);
 }

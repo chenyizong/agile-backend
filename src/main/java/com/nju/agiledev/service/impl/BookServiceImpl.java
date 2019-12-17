@@ -61,4 +61,9 @@ public class BookServiceImpl implements BookService {
         Category category = categoryService.get(cid);
         return bookDAO.findAllByCategory(category);
     }
+
+    @Override
+    public List<Book> search(String keywords) {
+        return bookDAO.findAllByTitleLikeOrAuthorLike('%'+keywords+'%','%'+keywords+'%');
+    }
 }

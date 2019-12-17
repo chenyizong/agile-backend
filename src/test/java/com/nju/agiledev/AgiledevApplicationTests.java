@@ -1,5 +1,6 @@
 package com.nju.agiledev;
 
+import com.nju.agiledev.controller.LibraryController;
 import com.nju.agiledev.dao.BookDAO;
 import com.nju.agiledev.po.Book;
 import com.nju.agiledev.service.book.BookService;
@@ -15,14 +16,21 @@ class AgiledevApplicationTests {
     BookService bookService;
     @Autowired
     BookDAO bookDAO;
+    @Autowired
+    LibraryController libraryController;
 
     @Test
     void contextLoads() {
     }
 
     @Test
-    void getBookList() {
-        List<Book> bookList = bookDAO.findAll();
+    void getBookListByCategory() {
+        List<Book> bookList = null;
+        try {
+            bookList = libraryController.listByCategory(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println(bookList);
     }
 }
