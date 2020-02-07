@@ -8,6 +8,7 @@ public class AgiledevApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AgiledevApplication.class, args);
+
     }
 
 }

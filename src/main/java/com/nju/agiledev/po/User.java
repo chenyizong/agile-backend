@@ -10,6 +10,7 @@ import javax.persistence.*;
  * ID id号
  * username 用户名
  * password 密码
+ * salt 加盐
  */
 @Entity
 @Table(name = "user")
@@ -22,5 +23,5 @@ public class User {
     int id;
     String username;
     String password;
-
+    String salt;
 }
