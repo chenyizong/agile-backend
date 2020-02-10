@@ -32,7 +32,8 @@
 3.MySQL
 4.Shiro
 
-#数据库说明
+
+# 数据库说明
 data.csv 为豆瓣图书数据
 
 zgq.sql 为 zztx修改后的数据库表结构模板
@@ -41,10 +42,6 @@ import_data.py 为python3下处理数据并导入数据库的数据处理代码
 
 data.sql为包含图书数据的数据库文件
 
-<font color=#FF0000 face="微软雅黑" size="4">
-上面的话都不用管，要导入数据库执行data.sql就行
-</font>
+$\color{#FF3030}{上面的话都不用管，要导入数据库执行data.sql就行}$
 
-<font color=#FF0000 face="微软雅黑" size="4">
 参考命令：mysql -u root -p agile < data.sql
-</font>
