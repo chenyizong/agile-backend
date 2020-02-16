@@ -6,9 +6,7 @@ package com.nju.agiledev.config;
  */
 
 
-import com.nju.agiledev.interceptor.LoginInterceptor;
 import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.*;
 
 @SpringBootConfiguration
@@ -30,17 +28,6 @@ public class MyWebConfigurer implements WebMvcConfigurer {
         registry.addResourceHandler("/api/file/**").addResourceLocations("file:" + "d:/workspace/img/");
     }
 
-    @Bean
-    public LoginInterceptor getLoginInterceptor() {
-        return new LoginInterceptor();
-    }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-
-        registry.addInterceptor(getLoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/index.html")
-        .excludePathPatterns("/api/login")
-        .excludePathPatterns("/api/logout");
-    }
 
 }

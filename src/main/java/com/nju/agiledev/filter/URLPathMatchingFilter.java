@@ -1,13 +1,13 @@
 package com.nju.agiledev.filter;
 
+import com.nju.agiledev.service.admin.AdminPermissionService;
+import com.nju.agiledev.util.SpringContextUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.PathMatchingFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.thymeleaf.spring5.context.SpringContextUtils;
-import sun.font.TextRecord;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -20,6 +20,8 @@ import java.util.Set;
  * @Date: 2020-01-07
  */
 public class URLPathMatchingFilter extends PathMatchingFilter {
+    @Autowired
+    AdminPermissionService adminPermissionService;
 
     @Override
     protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
@@ -31,17 +33,44 @@ public class URLPathMatchingFilter extends PathMatchingFilter {
             return true;
         }
 
+        if (null==adminPermissionService) {
+            adminPermissionService = SpringContextUtils.getContext().getBean(AdminPermissionService.class);
+        }
+
         String requestAPI = getPathWithinApplication(request);
 
         Subject subject = SecurityUtils.getSubject();
 
-        if (!subject.isAuthenticated()&& !subject.isRemembered()) {
+        if (!subject.isAuthenticated()) {
             System.out.println("需要登录");
             return false;
-
         }
-        System.out.println(subject.isRemembered());
-        System.out.println(subject.isAuthenticated());
-        return true;
+
+        // 判断访问接口是否需要过滤（数据库中是否有对应信息）
+        boolean needFilter = adminPermissionService.needFilter(requestAPI);
+        if (!needFilter) {
+            System.out.println("接口：" + requestAPI + "无需权限");
+            return true;
+        } else {
+            // 判断当前用户是否有相应权限
+            boolean hasPermission = false;
+            String username = subject.getPrincipal().toString();
+            Set<String> permissionAPIs = adminPermissionService.listPermissionsURLsByUser(username);
+            for (String api : permissionAPIs) {
+                // 匹配前缀
+                if (requestAPI.startsWith(api)) {
+                    hasPermission = true;
+                    break;
+                }
+            }
+
+            if (hasPermission) {
+                System.out.println("访问权限：" + requestAPI + "验证成功");
+                return true;
+            } else {
+                System.out.println("当前用户没有访问接口" + requestAPI + "的权限");
+                return false;
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.nju.agiledev.realm;
 
 import com.nju.agiledev.po.User;
+import com.nju.agiledev.service.admin.AdminPermissionService;
 import com.nju.agiledev.service.user.UserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -13,13 +14,17 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Set;
+
 /**
  * @Author: chenyizong
  * @Date: 2019-12-18
  */
 public class Realm extends AuthorizingRealm {
     @Autowired
-    UserService userService;
+    private UserService userService;
+    @Autowired
+    private AdminPermissionService adminPermissionService;
 
     /**
      * 重写获取授权信息方法
@@ -28,7 +33,13 @@ public class Realm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        // 获取当前用户的所有权限
+        String username = principalCollection.getPrimaryPrincipal().toString();
+        Set<String> permissions = adminPermissionService.listPermissionsURLsByUser(username);
+
+        // 将权限放入授权信息中
         SimpleAuthorizationInfo s = new SimpleAuthorizationInfo();
+        s.setStringPermissions(permissions);
         return s;
     }
 

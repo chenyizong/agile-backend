@@ -7,31 +7,30 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * User:用户表
- * ID id号
- * username 用户名
- * password 密码
- * salt 加盐
+ * id       唯一标示
+ * name     角色名称
+ * name_c   角色中文名称
+ * enabled
+ * perms    权限集合
+ * menus    菜单集合
+ * @Author: chenyizong
+ * @Date: 2020-02-11
  */
 @Entity
-@Table(name = "user")
+@Table(name = "admin_role")
 @JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 @Data
-public class User {
+public class AdminRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    private String username;
-    private String password;
-    private String salt;
     private String name;
-    private String phone;
-    private String email;
-    @Column(columnDefinition = "tinyint")
+    @Column(name = "name_c")
+    private String nameC;
     private boolean enabled;
-
     @Transient
-    private List<AdminRole> roles;
-
+    private List<AdminPermission> perms;
+    @Transient
+    private List<AdminMenu> menus;
 }

@@ -21,7 +21,7 @@ public class LoginController {
     UserService userService;
 
     @CrossOrigin
-    @PostMapping(value = "api/login")
+    @PostMapping("api/login")
     @ResponseBody
     public Result login(@RequestBody User requestUser) {
         String username = requestUser.getUsername();
@@ -46,8 +46,25 @@ public class LoginController {
     public Result register(@RequestBody User user) {
         String username = user.getUsername();
         String password = user.getPassword();
+        String name = user.getName();
+        String phone = user.getPhone();
+        String email = user.getEmail();
+
         username = HtmlUtils.htmlEscape(username);
         user.setUsername(username);
+        name = HtmlUtils.htmlEscape(name);
+        user.setName(name);
+        phone = HtmlUtils.htmlEscape(phone);
+        user.setName(phone);
+        email = HtmlUtils.htmlEscape(email);
+        user.setName(email);
+        user.setEnabled(true);
+
+        if (username.equals("") || password.equals("")) {
+            String message = "用户名或密码为空，注册失败";
+            return ResultFactory.buildFailResult(message);
+        }
+
         boolean exist = userService.isExist(username);
         if (exist) {
             String message = "用户名已经被使用";
