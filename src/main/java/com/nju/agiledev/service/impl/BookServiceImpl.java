@@ -1,7 +1,9 @@
 package com.nju.agiledev.service.impl;
 
 import com.nju.agiledev.dao.BookDAO;
+import com.nju.agiledev.dao.Book_newDAO;
 import com.nju.agiledev.po.Book;
+import com.nju.agiledev.po.Book_new;
 import com.nju.agiledev.po.Category;
 import com.nju.agiledev.service.book.BookService;
 import com.nju.agiledev.service.category.CategoryService;
@@ -17,6 +19,8 @@ public class BookServiceImpl implements BookService {
     BookDAO bookDAO;
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    Book_newDAO book_newDAO;
 
     /**
      * 获取所有书本列表
@@ -65,5 +69,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> search(String keywords) {
         return bookDAO.findAllByTitleLikeOrAuthorLike('%'+keywords+'%','%'+keywords+'%');
+    }
+
+    @Override
+    public Book_new getBookByID(int id) {
+        return book_newDAO.findBookById(id);
     }
 }

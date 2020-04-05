@@ -1,6 +1,7 @@
 package com.nju.agiledev.service.book;
 
 import com.nju.agiledev.po.Book;
+import com.nju.agiledev.po.Book_new;
 
 import java.util.List;
 
@@ -36,4 +37,6 @@ public interface BookService {
      * @return
      */
     List<Book> search(String keywords);
+
+    Book_new getBookByID(int id);
 }

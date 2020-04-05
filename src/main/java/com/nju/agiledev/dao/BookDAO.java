@@ -1,6 +1,7 @@
 package com.nju.agiledev.dao;
 
 import com.nju.agiledev.po.Book;
+import com.nju.agiledev.po.Book_new;
 import com.nju.agiledev.po.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
