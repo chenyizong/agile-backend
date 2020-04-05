@@ -18,6 +18,6 @@ public interface CommentsDAO extends JpaRepository<Comments,Integer> {
     @Query(value = "select * from Comments c order by praise DESC limit 20", nativeQuery = true)
     List<Comments> getTop20();
 
-    @Query(value = "select * from Comments c where book_id = ?", nativeQuery = true)
+    @Query(value = "select * from Comments c where book_id = ? order by praise DESC", nativeQuery = true)
     List<Comments> getCommentsByBook_id(int book_id);
 }

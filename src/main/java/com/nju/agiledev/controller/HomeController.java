@@ -39,7 +39,7 @@ public class HomeController {
         bookIDs.forEach(x->{
             Book_new book = bookService.getBookByID(x);
             List<Comments> comments = commentsService.getCommentsByBook_id(x);
-            BookWithComments each = new BookWithComments(book,comments);
+            BookWithComments each = new BookWithComments(book,comments.subList(0,3));
             list.add(each);
         });
         return ResultFactory.buildSuccessResult(list);
