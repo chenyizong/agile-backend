@@ -2,8 +2,10 @@ package com.nju.agiledev.controller;
 
 import com.nju.agiledev.po.Book;
 import com.nju.agiledev.po.BookType;
+import com.nju.agiledev.po.Comments;
 import com.nju.agiledev.po.Search;
 import com.nju.agiledev.service.book.BookService;
+import com.nju.agiledev.service.comments.CommentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,8 @@ import java.util.List;
 public class LibraryController {
     @Autowired
     BookService bookService;
+    @Autowired
+    CommentsService commentsService;
 
     @CrossOrigin
     @GetMapping("/api/books")
@@ -53,6 +57,18 @@ public class LibraryController {
         } else {
             return bookService.search(s.getKeywords());
         }
+    }
+
+    @CrossOrigin
+    @GetMapping("/api/{id}/book")
+    public Book getBookInfo(@PathVariable int id) throws Exception {
+        return bookService.getBookByID(id);
+    }
+
+    @CrossOrigin
+    @GetMapping("/api/{id}/comments")
+    public List<Comments> getBookComments(@PathVariable int id) throws Exception {
+        return commentsService.getCommentsByBook_id(id);
     }
 
 }
