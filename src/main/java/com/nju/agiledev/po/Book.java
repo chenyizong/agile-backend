@@ -6,15 +6,9 @@ import lombok.Data;
 import javax.persistence.*;
 
 /**
- * book表：
- * id 书本id
- * category 所属目录（外健cid）
- * cover 书本图片的url
- * title 书本名称
- * author 书本作者
- * date 上线日期
- * press 书本出版社
- * abs 书本简介
+ * @Author: zhuanggangqing
+ * @Description:
+ * @Date: Create in 4:18 下午 2020/4/5
  */
 @Entity
 @Table(name = "book")
@@ -26,14 +20,14 @@ public class Book {
     @Column(name = "id")
     int id;
 
-    @ManyToOne
-    @JoinColumn(name="cid")
-    private Category category;
-
-    String cover;
     String title;
+    String cover;
     String author;
-    String date;
     String press;
-    String abs;
+    String pyear;
+    double score;
+
+    String content_des;
+    String author_des;
+    String book_type;
 }

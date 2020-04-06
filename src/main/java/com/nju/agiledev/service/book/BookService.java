@@ -1,7 +1,6 @@
 package com.nju.agiledev.service.book;
 
 import com.nju.agiledev.po.Book;
-import com.nju.agiledev.po.Book_new;
 
 import java.util.List;
 
@@ -26,10 +25,10 @@ public interface BookService {
 
     /**
      * 获取某个目录下的书本列表
-     * @param cid
+     * @param book_type
      * @return
      */
-    List<Book> listByCategory(int cid);
+    List<Book> listByBookType(String book_type);
 
     /**
      * 模糊搜索书名或者作者名
@@ -38,5 +37,5 @@ public interface BookService {
      */
     List<Book> search(String keywords);
 
-    Book_new getBookByID(int id);
+    Book getBookByID(int id);
 }

@@ -13,6 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class BookWithComments {
-    Book_new book;
+    Book book;
     List<Comments> comments;
 }

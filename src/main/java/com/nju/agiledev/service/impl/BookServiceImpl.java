@@ -1,12 +1,8 @@
 package com.nju.agiledev.service.impl;
 
 import com.nju.agiledev.dao.BookDAO;
-import com.nju.agiledev.dao.Book_newDAO;
 import com.nju.agiledev.po.Book;
-import com.nju.agiledev.po.Book_new;
-import com.nju.agiledev.po.Category;
 import com.nju.agiledev.service.book.BookService;
-import com.nju.agiledev.service.category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -17,10 +13,6 @@ import java.util.List;
 public class BookServiceImpl implements BookService {
     @Autowired
     BookDAO bookDAO;
-    @Autowired
-    CategoryService categoryService;
-    @Autowired
-    Book_newDAO book_newDAO;
 
     /**
      * 获取所有书本列表
@@ -57,13 +49,12 @@ public class BookServiceImpl implements BookService {
     /**
      * 获取某个目录下的书本列表
      *
-     * @param cid
+     * @param book_type
      * @return
      */
     @Override
-    public List<Book> listByCategory(int cid) {
-        Category category = categoryService.get(cid);
-        return bookDAO.findAllByCategory(category);
+    public List<Book> listByBookType(String book_type) {
+        return bookDAO.findAllByBook_type(book_type);
     }
 
     @Override
@@ -72,7 +63,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book_new getBookByID(int id) {
-        return book_newDAO.findBookById(id);
+    public Book getBookByID(int id) {
+        return bookDAO.findBookById(id);
     }
 }

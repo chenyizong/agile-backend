@@ -1,6 +1,5 @@
 package com.nju.agiledev.service.comments;
 
-import com.nju.agiledev.po.Book;
 import com.nju.agiledev.po.Comments;
 
 import java.util.List;

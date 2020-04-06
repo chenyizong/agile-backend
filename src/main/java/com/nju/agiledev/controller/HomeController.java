@@ -1,7 +1,7 @@
 package com.nju.agiledev.controller;
 
 import com.nju.agiledev.po.BookWithComments;
-import com.nju.agiledev.po.Book_new;
+import com.nju.agiledev.po.Book;
 import com.nju.agiledev.po.Comments;
 import com.nju.agiledev.result.Result;
 import com.nju.agiledev.result.ResultFactory;
@@ -37,7 +37,7 @@ public class HomeController {
         });
         List<BookWithComments> list = new ArrayList<>();
         bookIDs.forEach(x->{
-            Book_new book = bookService.getBookByID(x);
+            Book book = bookService.getBookByID(x);
             List<Comments> comments = commentsService.getCommentsByBook_id(x);
             BookWithComments each = new BookWithComments(book,comments.subList(0,3));
             list.add(each);
